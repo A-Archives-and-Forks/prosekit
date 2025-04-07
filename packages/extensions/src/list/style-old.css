@@ -1,12 +1,12 @@
 .prosemirror-flat-list {
   & {
-    padding: 0;
+    display: list-item;
+    position: relative;
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: 32px;
     margin-bottom: 0;
-    position: relative;
-    display: list-item;
+    margin-left: 32px;
+    padding: 0;
     list-style: none;
   }
 
@@ -14,22 +14,22 @@
     outline: none;
 
     &:after {
-      content: '';
       position: absolute;
-      left: -32px;
-      right: -2px;
       top: -2px;
+      right: -2px;
       bottom: -2px;
+      left: -32px;
       border: 2px solid #8cf;
+      content: "";
       pointer-events: none;
     }
   }
 
-  &[data-list-kind='bullet'] {
+  &[data-list-kind="bullet"] {
     list-style: disc;
   }
 
-  &[data-list-kind='ordered'] {
+  &[data-list-kind="ordered"] {
     /*
       Ensure that the counters in children don't escape, so that the sub lists
       won't affect the counter of the parent list.
@@ -43,10 +43,9 @@
     &::before {
       position: absolute;
       right: 100%;
+      content: counter(prosemirror-flat-list-counter, decimal) ". ";
       font-variant-numeric: tabular-nums;
-      content: counter(prosemirror-flat-list-counter, decimal) '. ';
     }
-
     counter-increment: prosemirror-flat-list-counter;
 
     /* 
@@ -61,24 +60,22 @@
         */
       &[data-list-order] {
         @supports (counter-set: prosemirror-flat-list-counter 1) {
-          counter-set: prosemirror-flat-list-counter
-            var(--prosemirror-flat-list-order);
+          counter-set: prosemirror-flat-list-counter var(--prosemirror-flat-list-order);
         }
 
         /* 
           Safari older than version 17.2 doesn't support `counter-set` 
           */
         @supports not (counter-set: prosemirror-flat-list-counter 1) {
-          counter-increment: prosemirror-flat-list-counter
-            var(--prosemirror-flat-list-order);
+          counter-increment: prosemirror-flat-list-counter var(--prosemirror-flat-list-order);
         }
       }
     }
   }
 
-  &[data-list-kind='task'] {
+  &[data-list-kind="task"] {
     &::marker {
-      content: ' ';
+      content: " ";
     }
 
     & > .list-marker {
@@ -88,9 +85,9 @@
 
       position: absolute;
       right: 100%;
-      text-align: center;
       width: 1.5em;
       width: 1lh;
+      text-align: center;
 
       &,
       & * {
@@ -99,20 +96,20 @@
     }
   }
 
-  &[data-list-kind='toggle'] {
+  &[data-list-kind="toggle"] {
     & > .list-marker {
       position: absolute;
       right: 100%;
-      text-align: center;
       width: 1.5em;
       width: 1lh;
+      text-align: center;
     }
 
     & > .list-marker::before {
-      content: '\23F7'; /* Black Medium Down-Pointing Triangle */
+      content: "\23F7"; /* Black Medium Down-Pointing Triangle */
     }
     &[data-list-collapsable][data-list-collapsed] > .list-marker::before {
-      content: '\23F5'; /* Black Medium Right-Pointing Triangle */
+      content: "\23F5"; /* Black Medium Right-Pointing Triangle */
     }
 
     &[data-list-collapsable] > .list-marker {
@@ -124,9 +121,7 @@
     }
 
     /* If collapsed, hide the second and futher children */
-    &[data-list-collapsable][data-list-collapsed]
-      > .list-content
-      > *:nth-child(n + 2) {
+    &[data-list-collapsable][data-list-collapsed] > .list-content > *:nth-child(n+2) {
       display: none;
     }
   }
