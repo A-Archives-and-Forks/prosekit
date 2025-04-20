@@ -34,7 +34,7 @@
   ],
   "scripts": {
     "build:tsc": "tsc -b tsconfig.json",
-    "build:tsup": "tsup"
+    "build:tsdown": "tsdown"
   },
   "dependencies": {
     "@prosekit/core": "workspace:^",
@@ -42,10 +42,11 @@
     "@prosekit/pm": "workspace:^"
   },
   "devDependencies": {
-    "@prosekit/dev": "workspace:*",
+    "@prosekit/config-tsdown": "workspace:*",
+    "@prosekit/config-vitest": "workspace:*",
     "postcss": "^8.5.3",
     "postcss-nesting": "^13.0.1",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.9.0",
     "typescript": "~5.8.2",
     "vitest": "^3.1.1"
   },
@@ -62,6 +63,7 @@
         "default": "./dist/typography.css"
       }
     },
+    "dev": {},
     "main": "./dist/prosekit-basic.js",
     "module": "./dist/prosekit-basic.js",
     "types": "./dist/prosekit-basic.d.ts",
@@ -71,6 +73,13 @@
           "./dist/prosekit-basic.d.ts"
         ]
       }
+    }
+  },
+  "dev": {
+    "entry": {
+      "prosekit-basic": "./src/index.ts",
+      "style": "./src/style.css",
+      "typography": "./src/typography.css"
     }
   }
 }

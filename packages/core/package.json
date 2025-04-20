@@ -33,7 +33,7 @@
   ],
   "scripts": {
     "build:tsc": "tsc -b tsconfig.json",
-    "build:tsup": "tsup"
+    "build:tsdown": "tsdown"
   },
   "dependencies": {
     "@ocavue/utils": "^0.4.0",
@@ -43,12 +43,13 @@
     "just-map-values": "^3.2.0",
     "orderedmap": "^2.1.1",
     "prosemirror-splittable": "^0.1.1",
-    "type-fest": "^4.39.1"
+    "type-fest": "^4.40.0"
   },
   "devDependencies": {
-    "@prosekit/dev": "workspace:*",
+    "@prosekit/config-tsdown": "workspace:*",
+    "@prosekit/config-vitest": "workspace:*",
     "@vitest/browser": "^3.1.1",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.9.0",
     "typescript": "~5.8.2",
     "vitest": "^3.1.1"
   },
@@ -63,6 +64,7 @@
         "default": "./dist/prosekit-core-test.js"
       }
     },
+    "dev": {},
     "main": "./dist/prosekit-core.js",
     "module": "./dist/prosekit-core.js",
     "types": "./dist/prosekit-core.d.ts",
@@ -75,6 +77,12 @@
           "./dist/prosekit-core-test.d.ts"
         ]
       }
+    }
+  },
+  "dev": {
+    "entry": {
+      "prosekit-core": "./src/index.ts",
+      "prosekit-core-test": "./src/test/index.ts"
     }
   }
 }

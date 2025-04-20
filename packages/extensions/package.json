@@ -74,7 +74,7 @@
   ],
   "scripts": {
     "build:tsc": "tsc -b tsconfig.json",
-    "build:tsup": "tsup"
+    "build:tsdown": "tsdown"
   },
   "dependencies": {
     "@ocavue/utils": "^0.4.0",
@@ -86,8 +86,8 @@
     "prosemirror-gapcursor": "^1.3.2",
     "prosemirror-highlight": "^0.13.0",
     "prosemirror-search": "^1.0.0",
-    "prosemirror-tables": "^1.6.4",
-    "shiki": "^3.2.1"
+    "prosemirror-tables": "^1.7.1",
+    "shiki": "^3.2.2"
   },
   "peerDependencies": {
     "loro-crdt": ">= 0.16.7",
@@ -110,19 +110,20 @@
     }
   },
   "devDependencies": {
-    "@prosekit/dev": "workspace:*",
+    "@prosekit/config-tsdown": "workspace:*",
+    "@prosekit/config-vitest": "workspace:*",
     "@vitest/browser": "^3.1.1",
     "just-pick": "^4.2.0",
-    "loro-crdt": "^1.5.0",
+    "loro-crdt": "^1.5.3",
     "loro-prosemirror": "^0.2.1",
     "prettier": "^3.5.3",
-    "tsup": "^8.4.0",
-    "type-fest": "^4.39.1",
+    "tsdown": "^0.9.0",
+    "type-fest": "^4.40.0",
     "typescript": "~5.8.2",
     "vitest": "^3.1.1",
-    "y-prosemirror": "^1.3.0",
+    "y-prosemirror": "^1.3.3",
     "y-protocols": "^1.0.6",
-    "yjs": "^13.6.24"
+    "yjs": "^13.6.26"
   },
   "publishConfig": {
     "exports": {
@@ -290,6 +291,7 @@
         "default": "./dist/yjs/style.css"
       }
     },
+    "dev": {},
     "main": "./dist/prosekit-extensions.js",
     "module": "./dist/prosekit-extensions.js",
     "types": "./dist/prosekit-extensions.d.ts",
@@ -398,6 +400,53 @@
           "./dist/prosekit-extensions-yjs.d.ts"
         ]
       }
+    }
+  },
+  "dev": {
+    "entry": {
+      "prosekit-extensions": "./src/index.ts",
+      "prosekit-extensions-autocomplete": "./src/autocomplete/index.ts",
+      "prosekit-extensions-blockquote": "./src/blockquote/index.ts",
+      "prosekit-extensions-bold": "./src/bold/index.ts",
+      "prosekit-extensions-code": "./src/code/index.ts",
+      "prosekit-extensions-code-block": "./src/code-block/index.ts",
+      "prosekit-extensions-commit": "./src/commit/index.ts",
+      "commit/style": "./src/commit/style.css",
+      "prosekit-extensions-doc": "./src/doc/index.ts",
+      "prosekit-extensions-drop-cursor": "./src/drop-cursor/index.ts",
+      "prosekit-extensions-enter-rule": "./src/enter-rule/index.ts",
+      "prosekit-extensions-file": "./src/file/index.ts",
+      "prosekit-extensions-gap-cursor": "./src/gap-cursor/index.ts",
+      "gap-cursor/style": "./src/gap-cursor/style.css",
+      "prosekit-extensions-heading": "./src/heading/index.ts",
+      "prosekit-extensions-horizontal-rule": "./src/horizontal-rule/index.ts",
+      "prosekit-extensions-image": "./src/image/index.ts",
+      "prosekit-extensions-input-rule": "./src/input-rule/index.ts",
+      "prosekit-extensions-italic": "./src/italic/index.ts",
+      "prosekit-extensions-link": "./src/link/index.ts",
+      "prosekit-extensions-list": "./src/list/index.ts",
+      "list/style": "./src/list/style.css",
+      "prosekit-extensions-loro": "./src/loro/index.ts",
+      "loro/style": "./src/loro/style.css",
+      "prosekit-extensions-mark-rule": "./src/mark-rule/index.ts",
+      "prosekit-extensions-mention": "./src/mention/index.ts",
+      "prosekit-extensions-mod-click-prevention": "./src/mod-click-prevention/index.ts",
+      "prosekit-extensions-paragraph": "./src/paragraph/index.ts",
+      "prosekit-extensions-placeholder": "./src/placeholder/index.ts",
+      "placeholder/style": "./src/placeholder/style.css",
+      "prosekit-extensions-readonly": "./src/readonly/index.ts",
+      "prosekit-extensions-search": "./src/search/index.ts",
+      "search/style": "./src/search/style.css",
+      "prosekit-extensions-strike": "./src/strike/index.ts",
+      "prosekit-extensions-table": "./src/table/index.ts",
+      "table/style": "./src/table/style.css",
+      "prosekit-extensions-text": "./src/text/index.ts",
+      "prosekit-extensions-text-align": "./src/text-align/index.ts",
+      "prosekit-extensions-underline": "./src/underline/index.ts",
+      "prosekit-extensions-virtual-selection": "./src/virtual-selection/index.ts",
+      "virtual-selection/style": "./src/virtual-selection/style.css",
+      "prosekit-extensions-yjs": "./src/yjs/index.ts",
+      "yjs/style": "./src/yjs/style.css"
     }
   }
 }

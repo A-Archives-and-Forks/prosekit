@@ -21,32 +21,54 @@ function isInsideCode($pos: ResolvedPos): boolean {
   return $pos.marks().some((mark) => mark.type.name === 'code')
 }
 
-export interface PredictionPluginState {
-  active: boolean
-  ignore: number | null
-  matching: {
-    rule: AutocompleteRule
-    from: number
-    to: number
-    match: RegExpExecArray
-  } | null
+/**
+ * @internal
+ */
+export interface PredictionPluginMatching {
+  rule: AutocompleteRule
+  from: number
+  to: number
+  match: RegExpExecArray
 }
 
-export function getPluginState(state: EditorState) {
+/**
+ * @internal
+ */
+export interface PredictionPluginState {
+  /**
+   * The matching positions that should be ignored.
+   */
+  ignores: number[]
+
+  /**
+   * The current active matching.
+   */
+  matching: PredictionPluginMatching | null
+}
+
+/**
+ * @internal
+ */
+export interface PredictionTransactionMeta {
+  /**
+   * The from position that should be ignored.
+   */
+  ignore: number
+}
+
+export function getPluginState(state: EditorState): PredictionPluginState | undefined {
   return pluginKey.getState(state)
 }
 
-export function getTrMeta(tr: Transaction): PredictionPluginState {
-  return tr.getMeta(pluginKey) as PredictionPluginState
+export function getTrMeta(tr: Transaction): PredictionTransactionMeta | undefined {
+  return tr.getMeta(pluginKey) as PredictionTransactionMeta | undefined
 }
 
 export function setTrMeta(
   tr: Transaction,
-  meta: PredictionPluginState,
+  meta: PredictionTransactionMeta,
 ): Transaction {
   return tr.setMeta(pluginKey, meta)
 }
 
-export const pluginKey = new PluginKey<PredictionPluginState>(
-  'prosekit-autocomplete',
-)
+export const pluginKey: PluginKey<PredictionPluginState> = new PluginKey<PredictionPluginState>('prosekit-autocomplete')

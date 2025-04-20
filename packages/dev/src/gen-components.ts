@@ -209,19 +209,20 @@ function formatPrimitiveElementCode(kebab: string) {
   const camel = camelCase(kebab)
   return (
     `
-import { defineCustomElement, registerCustomElement } from "@aria-ui/core"
+import { defineCustomElement, registerCustomElement, type BaseElementConstructor } from "@aria-ui/core"
 
 import { use${pascal} } from "./setup"
 import { ${camel}Events, ${camel}Props, type ${pascal}Events, type ${pascal}Props } from "./types"
 
-class ${pascal}Element extends defineCustomElement<
+const ${pascal}ElementBase: BaseElementConstructor<${pascal}Props> = defineCustomElement<
   ${pascal}Props,
   ${pascal}Events
 >({
   props: ${camel}Props,
   events: ${camel}Events,
   setup: use${pascal},
-}) {}
+})
+class ${pascal}Element extends ${pascal}ElementBase {}
 
 registerCustomElement('prosekit-${kebab}', ${pascal}Element)
   
@@ -433,7 +434,9 @@ import {
   ${camel}Props,
   ${camel}Events,
 } from '@prosekit/web/${group}'
+import type { Component } from 'solid-js'
 
+import type { PropsWithElement } from '../../types'
 import { createComponent } from '../create-component'
 import type { CreateProps } from '../create-props'
 
@@ -442,7 +445,10 @@ import type { CreateProps } from '../create-props'
  */
 export interface ${pascal}Props extends Partial<CreateProps<Props, Events>> {}
 
-export const ${pascal} = createComponent<
+export const ${pascal}: Component<PropsWithElement<
+  ${pascal}Props,
+  ${pascal}Element
+>> = createComponent<
   ${pascal}Props,
   ${pascal}Element
 >(

@@ -39,7 +39,7 @@
   ],
   "scripts": {
     "build:tsc": "tsc -b tsconfig.json",
-    "build:tsup": "tsup"
+    "build:tsdown": "tsdown"
   },
   "dependencies": {
     "@prosekit/core": "workspace:^",
@@ -62,12 +62,13 @@
     }
   },
   "devDependencies": {
-    "@prosekit/dev": "workspace:*",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.1",
+    "@prosekit/config-tsdown": "workspace:*",
+    "@prosekit/config-vitest": "workspace:*",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.9.0",
     "typescript": "~5.8.2",
     "vitest": "^3.1.1"
   },
@@ -106,6 +107,7 @@
         "default": "./dist/prosekit-react-tooltip.js"
       }
     },
+    "dev": {},
     "main": "./dist/prosekit-react.js",
     "module": "./dist/prosekit-react.js",
     "types": "./dist/prosekit-react.d.ts",
@@ -136,6 +138,18 @@
           "./dist/prosekit-react-tooltip.d.ts"
         ]
       }
+    }
+  },
+  "dev": {
+    "entry": {
+      "prosekit-react": "./src/index.ts",
+      "prosekit-react-autocomplete": "./src/components/autocomplete/index.gen.ts",
+      "prosekit-react-block-handle": "./src/components/block-handle/index.gen.ts",
+      "prosekit-react-inline-popover": "./src/components/inline-popover/index.gen.ts",
+      "prosekit-react-popover": "./src/components/popover/index.gen.ts",
+      "prosekit-react-resizable": "./src/components/resizable/index.gen.ts",
+      "prosekit-react-table-handle": "./src/components/table-handle/index.gen.ts",
+      "prosekit-react-tooltip": "./src/components/tooltip/index.gen.ts"
     }
   }
 }
