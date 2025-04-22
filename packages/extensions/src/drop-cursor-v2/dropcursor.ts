@@ -5,6 +5,8 @@ import {
 import { dropPoint } from '@prosekit/pm/transform'
 import { type EditorView } from '@prosekit/pm/view'
 
+import { getPosAtCoords } from './get-pos-at-coords'
+
 interface DropCursorOptions {
   /// The color of the cursor. Defaults to `currentColor`. Use `false` to apply no color and rely only on class.
   color?: string | false
@@ -142,12 +144,12 @@ class DropCursorView {
 
   dragover(event: DragEvent) {
     if (!this.editorView.editable) return
-    const pos = this.editorView.posAtCoords({ left: event.clientX, top: event.clientY })
+    const pos = getPosAtCoords(this.editorView, { left: event.clientX, top: event.clientY })
 
     const node = pos && pos.inside >= 0 && this.editorView.state.doc.nodeAt(pos.inside)
     const disableDropCursor = node && node.type.spec.disableDropCursor
     const disabled = typeof disableDropCursor == 'function'
-      ? disableDropCursor(this.editorView, pos!, event)
+      ? disableDropCursor(this.editorView, pos, event)
       : disableDropCursor
 
     if (pos && !disabled) {
