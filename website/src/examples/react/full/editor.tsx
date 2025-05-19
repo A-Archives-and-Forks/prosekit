@@ -1,7 +1,10 @@
 import 'prosekit/basic/style.css'
 import 'prosekit/basic/typography.css'
 
-import { createEditor } from 'prosekit/core'
+import {
+  createEditor,
+  debug,
+} from 'prosekit/core'
 import { ProseKit } from 'prosekit/react'
 import {
   useEffect,
@@ -63,7 +66,7 @@ export default function Editor() {
   useEffect(() => {
     const eventListener = (e: MouseEvent) => {
       const pos = editor.view.posAtCoords({ left: e.clientX, top: e.clientY })
-      log(`[DEBUG] editor.tsx pos x: ${e.clientX}, y: ${e.clientY} => ${JSON.stringify(pos)}`)
+      debug(`[DEBUG] editor.tsx pos x: ${e.clientX}, y: ${e.clientY} => ${JSON.stringify(pos)}`)
     }
 
     document.addEventListener('mousemove', eventListener)
@@ -89,13 +92,4 @@ export default function Editor() {
       </div>
     </ProseKit>
   )
-}
-
-let cachedMessage = ''
-
-function log(message: string) {
-  if (cachedMessage !== message) {
-    console.log(message)
-    cachedMessage = message
-  }
 }
