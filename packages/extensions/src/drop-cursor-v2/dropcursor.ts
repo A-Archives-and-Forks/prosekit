@@ -3,7 +3,7 @@ import {
   type EditorState,
 } from '@prosekit/pm/state'
 import { dropPoint } from '@prosekit/pm/transform'
-import { type EditorView } from '@prosekit/pm/view'
+import type { EditorView } from '@prosekit/pm/view'
 
 import { getPosAtCoords } from './get-pos-at-coords'
 
