@@ -1,3 +1,4 @@
+import { debug } from '@prosekit/core'
 import type { EditorView } from '@prosekit/pm/view'
 
 export function getPosAtCoords(view: EditorView, coords: { left: number; top: number }): {
@@ -6,7 +7,7 @@ export function getPosAtCoords(view: EditorView, coords: { left: number; top: nu
 } | undefined {
   const pos = view.posAtCoords(coords)
 
-  console.log(`pos: ${JSON.stringify(pos)}`)
+  debug(`pos: ${JSON.stringify(pos)}`)
 
   if (!pos) return
 

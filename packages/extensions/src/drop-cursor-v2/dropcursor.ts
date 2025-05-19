@@ -145,14 +145,15 @@ class DropCursorView {
   dragover(event: DragEvent) {
     if (!this.editorView.editable) return
     const pos = getPosAtCoords(this.editorView, { left: event.clientX, top: event.clientY })
+    if (!pos) return
 
-    const node = pos && pos.inside >= 0 && this.editorView.state.doc.nodeAt(pos.inside)
+    const node = pos.inside >= 0 && this.editorView.state.doc.nodeAt(pos.inside)
     const disableDropCursor = node && node.type.spec.disableDropCursor
-    const disabled = typeof disableDropCursor == 'function'
+    const disabled: boolean | null | undefined = typeof disableDropCursor == 'function'
       ? disableDropCursor(this.editorView, pos, event)
       : disableDropCursor
 
-    if (pos && !disabled) {
+    if (!disabled) {
       let target = pos.pos
       if (this.editorView.dragging && this.editorView.dragging.slice) {
         const point = dropPoint(this.editorView.state.doc, target, this.editorView.dragging.slice)
