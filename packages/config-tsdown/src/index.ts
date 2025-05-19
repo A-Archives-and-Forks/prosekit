@@ -14,7 +14,7 @@ export function config(input?: Options): Options {
     }
   }
 
-  const entry = packageJson?.dev?.entry
+  const entry = packageJson.dev?.entry
 
   if (!entry) {
     throw new Error(`Unable to find the field "dev.entry" in ${pkg.path}`)
@@ -30,6 +30,10 @@ export function config(input?: Options): Options {
     // Bundling CSS files to remove the `@import` statements. This increases the
     // compability of the output.
     noExternal: [/\.css$/i],
+    target: [
+      'es2023',
+      'firefox116', // firefox116 is the latest version that doesn't support CSS nesting.
+    ],
   }
 
   return deepMergeOptions(output, input)

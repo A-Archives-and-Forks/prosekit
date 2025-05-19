@@ -1,5 +1,47 @@
 # prosekit
 
+## 0.13.2
+
+### Patch Changes
+
+- [`187c1f1`](https://github.com/ocavue/prosekit/commit/187c1f106b76b0488c8596d760d1105fab32bf63) ![](https://prosekit.dev/b/prosekit)
+
+  Fix a bundling issue where some CSS files in the `prosekit` package are empty.
+
+## 0.13.1
+
+### Patch Changes
+
+- [`4ff5d1f`](https://github.com/ocavue/prosekit/commit/4ff5d1f62144db07d45257b2314ad57ae090533b) ![](https://prosekit.dev/b/preact)
+
+  Remove incorrect dependency on `react` for `prosekit/preact`.
+
+## 0.13.0
+
+### Minor Changes
+
+- [`8d31a2e`](https://github.com/ocavue/prosekit/commit/8d31a2e6ad798a5c735f062ec54d879d79fbf5fb) ![](https://prosekit.dev/b/extensions) ![](https://prosekit.dev/b/basic)
+
+  Add a new `hardBreak` node. A hard break represents a line break in the text. It is a leaf node that will be rendered as a `<br>` DOM element.
+
+  Use `defineHardBreak()` to add a hard break extension to your editor. This extension includes the node type for `hardBreak`, the command `insertHardBreak` and keyboard shortcuts `Shift-Enter` and `Mod-Enter` for inserting a hard break.
+
+  `defineHardBreak()` is included in `defineBasicExtensions()`.
+
+### Patch Changes
+
+- [`ae7c367`](https://github.com/ocavue/prosekit/commit/ae7c367581dceeabf3554a811e8aa688420b0971) ![](https://prosekit.dev/b/extensions)
+
+  Remember multiple ignore positions when dismissing the autocomplete menu. Previously, only the last ignore position was remembered.
+
+- [`f78fada`](https://github.com/ocavue/prosekit/commit/f78fada9f6542904e3431c7c73b48f92ae90553c) ![](https://prosekit.dev/b/pm)
+
+  Update ProseMirror packages.
+
+- [`a30ef40`](https://github.com/ocavue/prosekit/commit/a30ef40a70af3e1bfe0fa1c21ed347501ebaac43) ![](https://prosekit.dev/b/extensions)
+
+  Add validate fields to node and mark attributes.
+
 ## 0.12.1
 
 ### Patch Changes

@@ -1,7 +1,6 @@
 import 'prosekit/basic/style.css'
 import 'prosekit/basic/typography.css'
 
-import { Themes } from '@prosekit/themes'
 import { defineBasicExtension } from 'prosekit/basic'
 import {
   createEditor,
@@ -39,13 +38,13 @@ export default function Editor() {
 
   // Load a document from a JSON string
   const handleLoad = useCallback((record: string) => {
-    setDefaultContent(JSON.parse(record))
+    setDefaultContent(JSON.parse(record) as NodeJSON)
     setHasUnsavedChange(false)
     setKey((key) => key + 1)
   }, [])
 
   return (
-    <div className={Themes.EDITOR_VIEWPORT}>
+    <div className="CSS_EDITOR_VIEWPORT">
       <button
         onClick={handleSave}
         disabled={!hasUnsavedChange}

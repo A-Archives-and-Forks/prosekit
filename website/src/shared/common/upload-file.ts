@@ -74,7 +74,7 @@ const tmpfilesUploader: Uploader<string> = ({
     formData.append('file', file)
 
     xhr.upload.addEventListener('progress', (event) => {
-      if (event.lengthComputable && onProgress) {
+      if (event.lengthComputable) {
         onProgress({
           loaded: event.loaded,
           total: event.total,
@@ -85,8 +85,8 @@ const tmpfilesUploader: Uploader<string> = ({
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         try {
-          const json = JSON.parse(xhr.responseText)
-          const url: string = (json.data.url as string).replace(
+          const json = JSON.parse(xhr.responseText) as { data: { url: string } }
+          const url: string = json.data.url.replace(
             'tmpfiles.org/',
             'tmpfiles.org/dl/',
           )
