@@ -50,7 +50,7 @@ export default function Editor() {
   useEffect(() => {
     const id = setTimeout(() => {
       editor.setContent(defaultContent)
-    }, 2000)
+    }, 500)
     return () => clearTimeout(id)
   }, [editor])
 
