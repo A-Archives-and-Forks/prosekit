@@ -299,11 +299,14 @@ export {
 export * from './utils/unicode'
 export { withSkipCodeBlock } from './utils/with-skip-code-block'
 
-let cachedMessage = ''
+let cachedMessages: string[] = []
 
 export function debug(message: string): void {
-  if (cachedMessage !== message) {
+  if (!cachedMessages.includes(message)) {
     console.debug(message)
-    cachedMessage = message
+    cachedMessages.push(message)
+  }
+  if (cachedMessages.length > 3) {
+    cachedMessages.shift()
   }
 }
