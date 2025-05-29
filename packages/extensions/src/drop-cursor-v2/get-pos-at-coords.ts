@@ -9,11 +9,20 @@ import type {
 } from '@prosekit/pm/model'
 import type { EditorView } from '@prosekit/pm/view'
 
-export function getPosAtCoords(view: EditorView, coords: { left: number; top: number }): number | undefined {
+export function getPosAtCoords(view: EditorView, coords: { left: number; top: number }):
+  | {
+    pos: number
+    inside: number
+  }
+  | undefined
+  | null
+{
   let insidePos = findInsidePos(view, coords)
   if (insidePos == null) {
     return
   }
+
+  return view.posAtCoords(coords)
 }
 
 function findInsidePos(view: EditorView, coords: { left: number; top: number }): number | undefined {
