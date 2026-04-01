@@ -1,6 +1,5 @@
-import { getId } from '@ocavue/utils'
-import { createEditor, defineNodeSpec, union, type NodeJSON } from '@prosekit/core'
-import { defineTestExtension } from '@prosekit/testing'
+import { createEditor, union, type NodeJSON } from '@prosekit/core'
+import { defineTestExtension, type ImageAttrs } from '@prosekit/testing'
 import { onCleanup, onMount, type Component } from 'solid-js'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-solid'
@@ -28,35 +27,21 @@ describe('SolidNodeView', () => {
   function defineExtension() {
     return union(
       defineTestExtension(),
-      defineNodeSpec({
-        name: 'image-refresh',
-        attrs: {
-          url: { default: '', validate: 'string' },
-        },
-        group: 'block',
-        inline: false,
-        atom: true,
-        isolating: true,
-        selectable: true,
-        draggable: true,
-        parseDOM: [{ tag: 'node-image-refresh' }],
-        toDOM: () => ['node-image-refresh', 0],
-      }),
       defineSolidNodeView({
-        name: 'image-refresh',
+        name: 'image',
         component: ImageRefreshView satisfies SolidNodeViewComponent,
       }),
     )
   }
 
   const ImageRefreshView: Component<SolidNodeViewProps> = (props) => {
-    const url = () => (props.node.attrs as { url: string }).url
+    const url = () => (props.node.attrs as ImageAttrs).src
 
     onMount(() => {
       state.imageRefresh.mounted++
       const id = setInterval(() => {
         state.imageRefresh.setAttrs++
-        props.setAttrs({ url: String(getId()) })
+        props.setAttrs({ src: String(Math.random()) })
       }, 50)
       onCleanup(() => {
         state.imageRefresh.unmounted++
@@ -87,15 +72,14 @@ describe('SolidNodeView', () => {
     content: [{ type: 'text', text: 'Hello' }],
   }
   const imageRefreshJSON: NodeJSON = {
-    type: 'image-refresh',
-    attrs: { url: '' },
+    type: 'image',
   }
 
   const editor = page.getByTestId('editor')
   const imageRefresh = page.getByTestId('image-refresh-view')
 
   // TODO: fix this test
-  it.fails('can render an image that refresh periodically', async () => {
+  it.fails('can render a single self-update image node', async () => {
     const initialContent: NodeJSON = {
       type: 'doc',
       content: [paragraphJSON, imageRefreshJSON],
@@ -125,7 +109,7 @@ describe('SolidNodeView', () => {
   })
 
   // TODO: fix this test
-  it.fails('can render multiple images that refresh periodically', async () => {
+  it.fails('can render multiple self-update image nodes', async () => {
     const initialContent: NodeJSON = {
       type: 'doc',
       content: [paragraphJSON, imageRefreshJSON, paragraphJSON, imageRefreshJSON, imageRefreshJSON],

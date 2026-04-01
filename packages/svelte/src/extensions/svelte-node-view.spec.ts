@@ -1,81 +1,15 @@
-/* eslint-disable @eslint-react/component-hook-factories */
-
-import { createEditor, union, type NodeJSON } from '@prosekit/core'
-import { defineTestExtension, type ImageAttrs } from '@prosekit/testing'
-import { createElement } from 'preact'
-import { useEffect, useState } from 'preact/hooks'
+import type { NodeJSON } from '@prosekit/core'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { render } from 'vitest-browser-preact'
+import { render } from 'vitest-browser-svelte'
 import { page } from 'vitest/browser'
 
-import { ProseKit } from '../components/prosekit.ts'
+import TestEditor from '../testing/image-refresh-editor.svelte'
+import { resetState, state } from '../testing/image-refresh-state'
 
-import { definePreactNodeView, type PreactNodeViewComponent, type PreactNodeViewProps } from './preact-node-view.ts'
-
-describe('PreactNodeView', () => {
-  const initialState = {
-    imageRefresh: {
-      mounted: 0,
-      unmounted: 0,
-      setAttrs: 0,
-    },
-  }
-
-  let state = structuredClone(initialState)
-
+describe('SvelteNodeView', () => {
   beforeEach(() => {
-    state = structuredClone(initialState)
+    resetState()
   })
-
-  function defineExtension() {
-    return union(
-      defineTestExtension(),
-      definePreactNodeView({
-        name: 'image',
-        component: ImageRefreshView satisfies PreactNodeViewComponent,
-      }),
-    )
-  }
-
-  function ImageRefreshView(props: PreactNodeViewProps) {
-    const url = (props.node.attrs as ImageAttrs).src
-    const setAttrs = props.setAttrs
-
-    useEffect(() => {
-      state.imageRefresh.mounted++
-      const id = setInterval(() => {
-        state.imageRefresh.setAttrs++
-        setAttrs({ src: String(Math.random()) })
-      }, 50)
-      return () => {
-        state.imageRefresh.unmounted++
-        clearInterval(id)
-      }
-    }, [setAttrs])
-
-    return createElement('div', {
-      'data-testid': 'image-refresh-view',
-      'data-url': url,
-    })
-  }
-
-  function TestEditor(props: { initialContent?: NodeJSON }) {
-    const [editor] = useState(() => {
-      return createEditor({
-        extension: defineExtension(),
-        defaultContent: props.initialContent,
-      })
-    })
-
-    return createElement(
-      ProseKit,
-      { editor },
-      createElement('div', {
-        'data-testid': 'editor',
-        'ref': editor.mount,
-      }),
-    )
-  }
 
   const paragraphJSON: NodeJSON = {
     type: 'paragraph',
@@ -93,7 +27,7 @@ describe('PreactNodeView', () => {
       type: 'doc',
       content: [paragraphJSON, imageRefreshJSON],
     }
-    const screen = render(createElement(TestEditor, { initialContent }))
+    const screen = await render(TestEditor, { initialContent })
     await expect.element(editor).toBeVisible()
     await expect.element(imageRefresh).toBeInTheDocument()
 
@@ -110,7 +44,7 @@ describe('PreactNodeView', () => {
 
     await expect.poll(check, { interval: 50, timeout: 30_000 }).toBe(true)
 
-    screen.unmount()
+    await screen.unmount()
 
     expect(state.imageRefresh.setAttrs).toBeGreaterThanOrEqual(5)
     expect(state.imageRefresh.mounted).toBe(1)
@@ -122,7 +56,7 @@ describe('PreactNodeView', () => {
       type: 'doc',
       content: [paragraphJSON, imageRefreshJSON, paragraphJSON, imageRefreshJSON, imageRefreshJSON],
     }
-    const screen = render(createElement(TestEditor, { initialContent }))
+    const screen = await render(TestEditor, { initialContent })
     await expect.element(editor).toBeVisible()
     await expect.element(imageRefresh.nth(0)).toBeInTheDocument()
     await expect.element(imageRefresh.nth(1)).toBeInTheDocument()
@@ -142,7 +76,7 @@ describe('PreactNodeView', () => {
 
     await expect.poll(check, { interval: 50, timeout: 30_000 }).toBe(true)
 
-    screen.unmount()
+    await screen.unmount()
 
     expect(state.imageRefresh.setAttrs).toBeGreaterThanOrEqual(15)
     expect(state.imageRefresh.mounted).toBe(3)
