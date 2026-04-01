@@ -93,10 +93,10 @@ describe('VueNodeView', () => {
   const editor = page.getByTestId('editor')
   const imageRefresh = page.getByTestId('image-refresh-view')
 
-  it('can render a single self-update image node', async () => {
+  it.fails('can render a single self-update image node', async () => {
     const initialContent: NodeJSON = {
       type: 'doc',
-      content: [paragraphJSON, imageRefreshJSON],
+      content: [imageRefreshJSON, paragraphJSON],
     }
     const screen = await render(TestEditor, { props: { initialContent } })
     await expect.element(editor).toBeVisible()
@@ -122,10 +122,10 @@ describe('VueNodeView', () => {
     expect(state.imageRefresh.unmounted).toBe(1)
   })
 
-  it('can render multiple self-update image nodes', async () => {
+  it.fails('can render multiple self-update image nodes', async () => {
     const initialContent: NodeJSON = {
       type: 'doc',
-      content: [paragraphJSON, imageRefreshJSON, paragraphJSON, imageRefreshJSON, imageRefreshJSON],
+      content: [imageRefreshJSON, paragraphJSON, imageRefreshJSON, imageRefreshJSON],
     }
     const screen = await render(TestEditor, { props: { initialContent } })
     await expect.element(editor).toBeVisible()

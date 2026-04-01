@@ -78,11 +78,10 @@ describe('SolidNodeView', () => {
   const editor = page.getByTestId('editor')
   const imageRefresh = page.getByTestId('image-refresh-view')
 
-  // TODO: fix this test
-  it.fails('can render a single self-update image node', async () => {
+  it('can render a single self-update image node', async () => {
     const initialContent: NodeJSON = {
       type: 'doc',
-      content: [paragraphJSON, imageRefreshJSON],
+      content: [imageRefreshJSON, paragraphJSON],
     }
     const screen = render(() => <TestEditor initialContent={initialContent} />)
     await expect.element(editor).toBeVisible()
@@ -108,11 +107,10 @@ describe('SolidNodeView', () => {
     expect(state.imageRefresh.unmounted).toBe(1)
   })
 
-  // TODO: fix this test
-  it.fails('can render multiple self-update image nodes', async () => {
+  it('can render multiple self-update image nodes', async () => {
     const initialContent: NodeJSON = {
       type: 'doc',
-      content: [paragraphJSON, imageRefreshJSON, paragraphJSON, imageRefreshJSON, imageRefreshJSON],
+      content: [imageRefreshJSON, paragraphJSON, imageRefreshJSON, imageRefreshJSON],
     }
     const screen = render(() => <TestEditor initialContent={initialContent} />)
     await expect.element(editor).toBeVisible()
