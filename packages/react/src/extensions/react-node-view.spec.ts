@@ -1,16 +1,18 @@
+/* eslint-disable @eslint-react/component-hook-factories */
+
 import { getId } from '@ocavue/utils'
 import { createEditor, defineNodeSpec, union, type NodeJSON } from '@prosekit/core'
+import { defineTestExtension } from '@prosekit/testing'
+import { createElement, useEffect, useState } from 'react'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { render } from 'vitest-browser-vue'
+import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'
-import { computed, defineComponent, h, onMounted, onUnmounted } from 'vue'
 
 import { ProseKit } from '../components/prosekit.ts'
-import { defineTestExtension } from '../testing/index.ts'
 
-import { defineVueNodeView, type VueNodeViewComponent, type VueNodeViewProps } from './vue-node-view.ts'
+import { defineReactNodeView, type ReactNodeViewComponent, type ReactNodeViewProps } from './react-node-view.ts'
 
-describe('VueNodeView', () => {
+describe('ReactNodeView', () => {
   const initialState = {
     imageRefresh: {
       mounted: 0,
@@ -42,59 +44,52 @@ describe('VueNodeView', () => {
         parseDOM: [{ tag: 'node-image-refresh' }],
         toDOM: () => ['node-image-refresh', 0],
       }),
-      defineVueNodeView({
+      defineReactNodeView({
         name: 'image-refresh',
-        component: ImageRefreshView as VueNodeViewComponent,
+        component: ImageRefreshView satisfies ReactNodeViewComponent,
       }),
     )
   }
 
-  const ImageRefreshView = defineComponent<VueNodeViewProps>(
-    {
-      name: 'ImageRefreshView',
-      props: ['contentRef', 'view', 'getPos', 'setAttrs', 'node', 'selected', 'decorations', 'innerDecorations'],
-      setup(props: VueNodeViewProps) {
-        const attrs = computed(() => props.node.value.attrs as { url: string })
-        onMounted(() => {
-          state.imageRefresh.mounted++
-          const id = setInterval(() => {
-            state.imageRefresh.setAttrs++
-            props.setAttrs({ url: String(getId()) })
-          }, 50)
-          onUnmounted(() => {
-            state.imageRefresh.unmounted++
-            clearInterval(id)
-          })
-        })
-        return () =>
-          h('div', {
-            'data-testid': 'image-refresh-view',
-            'data-url': attrs.value.url,
-          })
-      },
-    },
-  )
+  function ImageRefreshView(props: ReactNodeViewProps) {
+    const url = (props.node.attrs as { url: string }).url
+    const setAttrs = props.setAttrs
 
-  const TestEditor = defineComponent<{ initialContent?: NodeJSON }>({
-    name: 'TestEditor',
-    props: ['initialContent'],
-    setup(props) {
-      const extension = defineExtension()
-      const editor = createEditor({
-        extension,
+    useEffect(() => {
+      state.imageRefresh.mounted++
+      const id = setInterval(() => {
+        state.imageRefresh.setAttrs++
+        setAttrs({ url: String(getId()) })
+      }, 50)
+      return () => {
+        state.imageRefresh.unmounted++
+        clearInterval(id)
+      }
+    }, [setAttrs])
+
+    return createElement('div', {
+      'data-testid': 'image-refresh-view',
+      'data-url': url,
+    })
+  }
+
+  function TestEditor(props: { initialContent?: NodeJSON }) {
+    const [editor] = useState(() => {
+      return createEditor({
+        extension: defineExtension(),
         defaultContent: props.initialContent,
       })
+    })
 
-      return () =>
-        h(ProseKit, { editor }, () =>
-          h('div', {
-            'data-testid': 'editor',
-            'ref': (el) => {
-              editor.mount(el as HTMLElement | null)
-            },
-          }))
-    },
-  })
+    return createElement(
+      ProseKit,
+      { editor },
+      createElement('div', {
+        'data-testid': 'editor',
+        'ref': editor.mount,
+      }),
+    )
+  }
 
   const paragraphJSON: NodeJSON = {
     type: 'paragraph',
@@ -113,7 +108,7 @@ describe('VueNodeView', () => {
       type: 'doc',
       content: [paragraphJSON, imageRefreshJSON],
     }
-    const screen = await render(TestEditor, { props: { initialContent } })
+    const screen = await render(createElement(TestEditor, { initialContent }))
     await expect.element(editor).toBeVisible()
     await expect.element(imageRefresh).toBeInTheDocument()
 
@@ -142,7 +137,7 @@ describe('VueNodeView', () => {
       type: 'doc',
       content: [paragraphJSON, imageRefreshJSON, paragraphJSON, imageRefreshJSON, imageRefreshJSON],
     }
-    const screen = await render(TestEditor, { props: { initialContent } })
+    const screen = await render(createElement(TestEditor, { initialContent }))
     await expect.element(editor).toBeVisible()
     await expect.element(imageRefresh.nth(0)).toBeInTheDocument()
     await expect.element(imageRefresh.nth(1)).toBeInTheDocument()
