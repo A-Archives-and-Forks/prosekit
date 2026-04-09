@@ -1,7 +1,7 @@
 import 'prosekit/basic/style.css'
 import 'prosekit/basic/typography.css'
 
-import '../../ui/toolbar/index'
+import '../../ui/table-handle/index'
 
 import { ContextProvider } from '@lit/context'
 import { html, LitElement, type PropertyDeclaration, type PropertyValues } from 'lit'
@@ -9,17 +9,14 @@ import { createRef, ref, type Ref } from 'lit/directives/ref.js'
 import type { Editor } from 'prosekit/core'
 import { createEditor } from 'prosekit/core'
 
-import { sampleUploader } from '../../sample/sample-uploader'
+import { sampleContent } from '../../sample/sample-doc-table'
 import { editorContext } from '../../ui/editor-context'
 
 import { defineExtension } from './extension'
 
 export class LitEditor extends LitElement {
   static override properties = {
-    editor: {
-      state: true,
-      attribute: false,
-    } satisfies PropertyDeclaration<Editor>,
+    editor: { state: true, attribute: false } satisfies PropertyDeclaration<Editor>,
   }
 
   private editor: Editor
@@ -28,7 +25,7 @@ export class LitEditor extends LitElement {
     super()
 
     const extension = defineExtension()
-    this.editor = createEditor({ extension })
+    this.editor = createEditor({ extension, defaultContent: sampleContent })
     this.ref = createRef<HTMLDivElement>()
     new ContextProvider(this, {
       context: editorContext,
@@ -40,11 +37,6 @@ export class LitEditor extends LitElement {
     return this
   }
 
-  override disconnectedCallback() {
-    this.editor.unmount()
-    super.disconnectedCallback()
-  }
-
   override updated(changedProperties: PropertyValues) {
     super.updated(changedProperties)
     this.editor.mount(this.ref.value)
@@ -52,23 +44,21 @@ export class LitEditor extends LitElement {
 
   override render() {
     return html`<div class="CSS_EDITOR_VIEWPORT">
-      <lit-editor-toolbar
-        .uploader=${sampleUploader}
-      ></lit-editor-toolbar>
       <div class="CSS_EDITOR_SCROLLING">
         <div ${ref(this.ref)} class="CSS_EDITOR_CONTENT"></div>
+        <lit-editor-table-handle></lit-editor-table-handle>
       </div>
     </div>`
   }
 }
 
 export function registerLitEditor() {
-  if (customElements.get('lit-editor-example-toolbar')) return
-  customElements.define('lit-editor-example-toolbar', LitEditor)
+  if (customElements.get('lit-editor-example-table')) return
+  customElements.define('lit-editor-example-table', LitEditor)
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'lit-editor-example-toolbar': LitEditor
+    'lit-editor-example-table': LitEditor
   }
 }
