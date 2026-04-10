@@ -14,7 +14,7 @@ import { useEditorContext } from '../../contexts/editor-context.ts';
  *
  * @public
  */
-export interface InlinePopoverRootProps extends JSX.HTMLAttributes<InlinePopoverRootElement> {
+export interface InlinePopoverRootProps {
   /**
    * The ProseKit editor instance.
    *
@@ -46,7 +46,7 @@ export interface InlinePopoverRootProps extends JSX.HTMLAttributes<InlinePopover
    * @default false
    */
   disabled?: InlinePopoverRootElementProps['disabled'];
-  /** */
+  /** Emitted when the open state of the popover changes. */
   onOpenChange?: (event: InlinePopoverRootEvents['openChange']) => void;
 }
 
@@ -55,7 +55,7 @@ export interface InlinePopoverRootProps extends JSX.HTMLAttributes<InlinePopover
  *
  * @public
  */
-export const InlinePopoverRoot: Component<InlinePopoverRootProps> = (props): any => {
+export const InlinePopoverRoot: Component<InlinePopoverRootProps & JSX.HTMLAttributes<InlinePopoverRootElement>> = (props): any => {
   registerInlinePopoverRootElement();
 
   const [getElement, setElement] = createSignal<InlinePopoverRootElement | null>(null);
@@ -102,5 +102,3 @@ export const InlinePopoverRoot: Component<InlinePopoverRootProps> = (props): any
       }),
     );
 };
-
-export type { InlinePopoverRootEvents };
