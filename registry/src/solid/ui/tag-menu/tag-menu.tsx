@@ -26,9 +26,9 @@ export default function TagMenu(props: { tags: { id: number; label: string }[] }
   }
 
   return (
-    <AutocompleteRoot regex={regex} class="contents">
-      <AutocompletePositioner>
-        <AutocompletePopup class="CSS_AUTOCOMPLETE_MENU">
+    <AutocompleteRoot regex={regex}>
+      <AutocompletePositioner class="CSS_AUTOCOMPLETE_POSITIONER">
+        <AutocompletePopup class="CSS_AUTOCOMPLETE_POPUP">
           <AutocompleteEmpty class="CSS_AUTOCOMPLETE_MENU_ITEM">
             No results
           </AutocompleteEmpty>

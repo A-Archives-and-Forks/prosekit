@@ -22,10 +22,9 @@ export default function SlashMenu(props: Props) {
       onOpenChange={(event) => {
         props.onOpenChange(event.detail)
       }}
-      className="contents"
     >
-      <AutocompletePositioner>
-        <AutocompletePopup className="CSS_AUTOCOMPLETE_MENU">
+      <AutocompletePositioner className="CSS_AUTOCOMPLETE_POSITIONER">
+        <AutocompletePopup className="CSS_AUTOCOMPLETE_POPUP">
           <SlashMenuItem
             label="Text"
             onSelect={() => editor.commands.setParagraph()}

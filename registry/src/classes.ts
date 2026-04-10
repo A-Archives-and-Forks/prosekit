@@ -5,45 +5,6 @@ function cn(...args: Array<string | undefined | null | false>): string {
   return twMerge(clsx(...args))
 }
 
-// For those elements that need to toggle visibility based on the `data-state`
-// attribute, we hide them by default. This ensures that they do not get
-// displayed before SSR hydration is complete.
-const CSS_DEFAULT_HIDDEN = '[&:not([data-state])]:hidden'
-
-const CSS_FLOATING_MENU = cn(
-  'z-10 box-border rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 shadow-lg',
-  CSS_DEFAULT_HIDDEN,
-)
-
-const CSS_PRESENCE_ANIMATE = cn(
-  CSS_DEFAULT_HIDDEN,
-  'will-change-transform',
-  'motion-safe:data-[state=open]:animate-in',
-  'motion-safe:data-[state=closed]:animate-out',
-  'motion-safe:data-[state=open]:fade-in-0',
-  'motion-safe:data-[state=closed]:fade-out-0',
-  'motion-safe:data-[state=open]:zoom-in-95',
-  'motion-safe:data-[state=closed]:zoom-out-95',
-  'motion-safe:data-[state=open]:animate-duration-150',
-  'motion-safe:data-[state=closed]:animate-duration-200',
-)
-
-const CSS_POPOVER_ANIMATE = cn(
-  CSS_PRESENCE_ANIMATE,
-  'motion-safe:data-[side=bottom]:slide-in-from-top-2',
-  'motion-safe:data-[side=bottom]:slide-out-to-top-2',
-  'motion-safe:data-[side=left]:slide-in-from-right-2',
-  'motion-safe:data-[side=left]:slide-out-to-right-2',
-  'motion-safe:data-[side=right]:slide-in-from-left-2',
-  'motion-safe:data-[side=right]:slide-out-to-left-2',
-  'motion-safe:data-[side=top]:slide-in-from-bottom-2',
-  'motion-safe:data-[side=top]:slide-out-to-bottom-2',
-)
-
-const CSS_FLOATING_MENU_ITEM = cn(
-  'box-border cursor-default select-none whitespace-nowrap outline-hidden data-highlighted:bg-gray-100 dark:data-highlighted:bg-gray-800',
-)
-
 const CSS_BUTTON_BASE = cn(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white dark:ring-offset-gray-950 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-gray-900 dark:focus-visible:ring-gray-300 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-0',
 )
@@ -75,6 +36,26 @@ const CSS_INPUT = cn(
   'disabled:cursor-not-allowed disabled:opacity-50',
 )
 
+const CSS_POSITIONER = cn(
+  'block overflow-visible bg-transparent w-min h-min z-50',
+  'motion-safe:ease-out motion-safe:transition-transform motion-safe:duration-100',
+)
+const CSS_POPUP = cn(
+  'flex box-border',
+  'motion-safe:duration-100 data-[state=closed]:motion-safe:duration-150',
+  'motion-safe:transition-discrete motion-safe:transition-all',
+  'data-[state=closed]:opacity-0 starting:opacity-0 opacity-100',
+  'data-[state=closed]:scale-95 starting:scale-95 scale-100',
+)
+const CSS_MENU_POPUP = cn(
+  CSS_POPUP,
+  'motion-safe:duration-40',
+  'rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 shadow-lg',
+)
+const CSS_MENU_ITEM = cn(
+  'box-border cursor-default select-none whitespace-nowrap outline-hidden data-highlighted:bg-gray-100 dark:data-highlighted:bg-gray-800',
+)
+
 export const CSS_MINIMAL_EDITOR = cn(
   'outline-solid p-4',
 )
@@ -98,34 +79,36 @@ export const CSS_EDITOR_CONTENT = cn(
   '[&_span[data-mention=tag]]:text-violet-500',
 )
 
-export const CSS_INLINE_MENU_MAIN = cn(
-  CSS_FLOATING_MENU,
+export const CSS_INLINE_MENU_POSITIONER = CSS_POSITIONER
+
+export const CSS_INLINE_MENU_MAIN_POPUP = cn(
+  CSS_MENU_POPUP,
   'relative flex min-w-32 space-x-1 overflow-auto whitespace-nowrap rounded-md p-1',
 )
 
-export const CSS_INLINE_MENU_LINK = cn(
-  CSS_FLOATING_MENU,
+export const CSS_INLINE_MENU_LINK_POPUP = cn(
+  CSS_MENU_POPUP,
   'relative flex flex-col w-xs rounded-lg p-4 gap-y-2 items-stretch',
 )
 
-export const CSS_INLINE_MENU_LINK_INPUT = cn(CSS_INPUT)
+export const CSS_INLINE_MENU_LINK_POPUP_INPUT = cn(CSS_INPUT)
 
-export const CSS_INLINE_MENU_LINK_REMOVE_BUTTON = cn(
+export const CSS_INLINE_MENU_LINK_POPUP_REMOVE_BUTTON = cn(
   CSS_BUTTON_BASE,
   CSS_BUTTON_VARIANT_PRIMARY,
   CSS_BUTTON_SIZE_SM,
 )
 
-export const CSS_AUTOCOMPLETE_MENU = cn(
-  'relative block max-h-100 min-w-60 select-none overflow-auto whitespace-nowrap p-1',
-  CSS_FLOATING_MENU,
+export const CSS_AUTOCOMPLETE_POSITIONER = CSS_POSITIONER
+export const CSS_AUTOCOMPLETE_POPUP = cn(
+  CSS_MENU_POPUP,
+  'flex flex-col',
+  'relative max-h-100 min-w-60 select-none overflow-auto whitespace-nowrap p-1',
 )
-
 export const CSS_AUTOCOMPLETE_MENU_ITEM = cn(
   'relative flex items-center justify-between min-w-32 scroll-my-1 rounded-sm px-3 py-1.5',
-  CSS_FLOATING_MENU_ITEM,
+  CSS_MENU_ITEM,
 )
-
 export const CSS_AUTOCOMPLETE_MENU_KEYBOARD = cn(
   'text-xs font-mono text-gray-400 dark:text-gray-500',
 )
@@ -153,10 +136,10 @@ export const CSS_TOGGLE_BUTTON = cn(
   'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 data-[state=on]:bg-gray-200 dark:data-[state=on]:bg-gray-700',
 )
 
+export const CSS_IMAGE_UPLOAD_POSITIONER = CSS_POSITIONER
 export const CSS_IMAGE_UPLOAD_CARD = cn(
+  CSS_MENU_POPUP,
   'flex flex-col gap-y-4 p-6 text-sm w-sm',
-  CSS_FLOATING_MENU,
-  CSS_POPOVER_ANIMATE,
 )
 
 export const CSS_IMAGE_UPLOAD_INPUT = cn(CSS_INPUT)
@@ -199,21 +182,8 @@ export const CSS_IMAGE_UPLOAD_ERROR_MESSAGE = cn('hidden opacity-80 @xs:block')
 export const CSS_DROP_CURSOR = cn('transition-all bg-blue-500')
 export const CSS_DROP_INDICATOR = cn('z-50 transition-all bg-blue-500')
 
-const CSS_HANDLER_POSITIONER_BASE = cn(
-  'block overflow-visible bg-transparent w-min h-min',
-  'motion-safe:ease-out motion-safe:transition-transform motion-safe:duration-100',
-)
-const CSS_HANDLER_POPUP_BASE = cn(
-  'flex',
-  'motion-safe:duration-100 data-[state=closed]:motion-safe:duration-150',
-  'motion-safe:transition-discrete motion-safe:transition-all',
-  'data-[state=closed]:opacity-0 starting:opacity-0 opacity-100',
-  'data-[state=closed]:scale-90 starting:scale-90 scale-100',
-)
-
-export const CSS_BLOCK_HANDLE_POSITIONER = cn(CSS_HANDLER_POSITIONER_BASE)
-
-export const CSS_BLOCK_HANDLE_POPUP = cn(CSS_HANDLER_POPUP_BASE)
+export const CSS_BLOCK_HANDLE_POSITIONER = CSS_POSITIONER
+export const CSS_BLOCK_HANDLE_POPUP = CSS_POPUP
 
 export const CSS_BLOCK_HANDLE_ADD = cn(
   // "h-6" currently matches a 24px paragraph line-height (with a 16px base font size and line-height 1.5); if the base font size changes, this equivalence may no longer hold.
@@ -230,17 +200,17 @@ export const CSS_BLOCK_HANDLE_DRAG = cn(
   'hover:bg-gray-100 dark:hover:bg-gray-800 rounded-sm text-gray-500/50 dark:text-gray-400/50',
 )
 
-export const CSS_TABLE_HANDLE_COLUMN_POSITIONER = cn(CSS_HANDLER_POSITIONER_BASE)
-export const CSS_TABLE_HANDLE_ROW_POSITIONER = cn(CSS_HANDLER_POSITIONER_BASE)
+export const CSS_TABLE_HANDLE_COLUMN_POSITIONER = CSS_POSITIONER
+export const CSS_TABLE_HANDLE_ROW_POSITIONER = CSS_POSITIONER
 
 export const CSS_TABLE_HANDLE_COLUMN_POPUP = cn(
   'translate-y-[50%]',
-  CSS_HANDLER_POPUP_BASE,
+  CSS_POPUP,
 )
 
 export const CSS_TABLE_HANDLE_ROW_POPUP = cn(
   'ltr:translate-x-[50%] rtl:translate-x-[-50%]',
-  CSS_HANDLER_POPUP_BASE,
+  CSS_POPUP,
 )
 
 const CSS_TABLE_HANDLE_TRIGGER_BASE = cn(
@@ -263,15 +233,15 @@ export const CSS_TABLE_MENU_POSITIONER = cn(
 )
 
 export const CSS_TABLE_MENU_POPUP = cn(
-  'relative block max-h-100 min-w-32 select-none overflow-auto whitespace-nowrap p-1 outline-none ',
-  CSS_FLOATING_MENU,
+  CSS_MENU_POPUP,
+  'relative flex flex-col max-h-100 min-w-32 select-none overflow-auto whitespace-nowrap p-1 outline-none ',
 )
 
 export const CSS_TABLE_CELL_MENU_ITEM = cn(
   'relative min-w-32 scroll-my-1 rounded-sm px-3 py-1.5 flex items-center justify-between gap-8 cursor-default',
   'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 hover:data-[disabled=true]:opacity-50',
   'data-danger:text-red-500',
-  CSS_FLOATING_MENU_ITEM,
+  CSS_MENU_ITEM,
 )
 
 export const CSS_TABLE_CELL_MENU_ITEM_SHORTCUT = cn(
@@ -279,10 +249,10 @@ export const CSS_TABLE_CELL_MENU_ITEM_SHORTCUT = cn(
 )
 
 export const CSS_TOOLTIP_TRIGGER = cn('block')
-// TODO: add block to CSS_TOOLTIP_CONTENT
-export const CSS_TOOLTIP_CONTENT = cn(
-  'z-50 overflow-hidden rounded-md border border-solid bg-gray-900 dark:bg-gray-50 px-3 py-1.5 text-xs text-gray-50 dark:text-gray-900 shadow-xs',
-  CSS_POPOVER_ANIMATE,
+export const CSS_TOOLTIP_POSITIONER = CSS_POSITIONER
+export const CSS_TOOLTIP_POPUP = cn(
+  CSS_POPUP,
+  'overflow-hidden rounded-md border border-solid bg-gray-900 dark:bg-gray-50 px-3 py-1.5 text-xs text-gray-50 dark:text-gray-900 shadow-xs text-nowrap',
 )
 
 export const CSS_SEARCH = cn(

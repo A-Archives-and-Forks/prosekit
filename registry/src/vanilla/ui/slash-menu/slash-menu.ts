@@ -15,14 +15,14 @@ export function renderSlashMenu(
   editor: Editor<BasicExtension>,
 ) {
   const root = document.createElement('prosekit-autocomplete-root') as AutocompleteRootElement
-  root.className = 'contents'
   root.editor = editor
   root.regex = regex
 
   const positioner = document.createElement('prosekit-autocomplete-positioner') as AutocompletePositionerElement
+  positioner.className = 'CSS_AUTOCOMPLETE_POSITIONER'
 
   const popup = document.createElement('prosekit-autocomplete-popup') as AutocompletePopupElement
-  popup.className = 'CSS_AUTOCOMPLETE_MENU'
+  popup.className = 'CSS_AUTOCOMPLETE_POPUP'
 
   popup.append(renderSlashMenuItem({ label: 'Text', kbd: undefined, onSelect: () => editor.commands.setParagraph() }))
   popup.append(renderSlashMenuItem({ label: 'Heading 1', kbd: '#', onSelect: () => editor.commands.setHeading({ level: 1 }) }))

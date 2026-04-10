@@ -94,10 +94,10 @@ function handleLinkUpdate(href?: string) {
     if (!event.detail) linkMenuOpen = false
   }}
 >
-  <InlinePopoverPositioner>
+  <InlinePopoverPositioner class="CSS_INLINE_MENU_POSITIONER">
     <InlinePopoverPopup
       data-testid="inline-menu-main"
-      class="CSS_INLINE_MENU_MAIN"
+      class="CSS_INLINE_MENU_MAIN_POPUP"
     >
       {#if $items.bold}
         <Button
@@ -172,10 +172,10 @@ function handleLinkUpdate(href?: string) {
     linkMenuOpen = event.detail
   }}
 >
-  <InlinePopoverPositioner placement="bottom">
+  <InlinePopoverPositioner placement="bottom" class="CSS_INLINE_MENU_POSITIONER">
     <InlinePopoverPopup
       data-testid="inline-menu-link"
-      class="CSS_INLINE_MENU_LINK"
+      class="CSS_INLINE_MENU_LINK_POPUP"
     >
       {#if linkMenuOpen && $items.link}
         <form
@@ -189,13 +189,13 @@ function handleLinkUpdate(href?: string) {
           <input
             placeholder="Paste the link..."
             value={$items.link.currentLink || ''}
-            class="CSS_INLINE_MENU_LINK_INPUT"
+            class="CSS_INLINE_MENU_LINK_POPUP_INPUT"
           />
         </form>
       {/if}
       {#if $items.link?.isActive}
         <button
-          class="CSS_INLINE_MENU_LINK_REMOVE_BUTTON"
+          class="CSS_INLINE_MENU_LINK_POPUP_REMOVE_BUTTON"
           onclick={() => handleLinkUpdate()}
           onmousedown={(e) => e.preventDefault()}
         >

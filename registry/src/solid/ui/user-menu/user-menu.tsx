@@ -34,12 +34,11 @@ export default function UserMenu(props: {
   return (
     <AutocompleteRoot
       regex={regex}
-      class="contents"
       onQueryChange={(event) => props.onQueryChange?.(event.detail)}
       onOpenChange={(event) => props.onOpenChange?.(event.detail)}
     >
-      <AutocompletePositioner>
-        <AutocompletePopup class="CSS_AUTOCOMPLETE_MENU">
+      <AutocompletePositioner class="CSS_AUTOCOMPLETE_POSITIONER">
+        <AutocompletePopup class="CSS_AUTOCOMPLETE_POPUP">
           <AutocompleteEmpty class="CSS_AUTOCOMPLETE_MENU_ITEM">
             {props.loading ? 'Loading...' : 'No results'}
           </AutocompleteEmpty>

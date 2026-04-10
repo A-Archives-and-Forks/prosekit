@@ -864,8 +864,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       '@aria-ui/elements':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@aria-ui/utils':
         specifier: ^0.1.0
         version: 0.1.0
@@ -1282,8 +1282,8 @@ packages:
   '@aria-ui/core@0.1.0':
     resolution: {integrity: sha512-uKxomB53dAF2OkNav72ewlExtbTMItOwU+X1sMsN/ORc4xEeNTUy3BI3klCJ7XKY2/aAp+D0r8/F7XfabZ6NGQ==}
 
-  '@aria-ui/elements@0.1.1':
-    resolution: {integrity: sha512-a4pmfo8C5URtL7qCY4h/uErbhMDbwMoErwd5tgBySLIrkA3/i2LlBNpnEmjupr3JcHbTC+57HgBcp1cogIdh/g==}
+  '@aria-ui/elements@0.1.2':
+    resolution: {integrity: sha512-Uy7r4juZgt2i5A0ixneH8PsJ1uwy6vlG5+tVJ2bTAUkvkF6qhwhDNjkU1QLYMpESN5KXQDzUVaQqpKoMaZFmxg==}
 
   '@aria-ui/utils@0.1.0':
     resolution: {integrity: sha512-wBLP8sdhiS3ZbkmlIlMFmlbhNpYAAEKvvkfbXHUhXVnFxNzJYqY4FuLGUBbrGR+k+K7FU6LhmtVvjRta/hlTsQ==}
@@ -7955,7 +7955,7 @@ snapshots:
       alien-signals: 3.1.2
       server-dom-shim: 1.1.0
 
-  '@aria-ui/elements@0.1.1':
+  '@aria-ui/elements@0.1.2':
     dependencies:
       '@aria-ui/core': 0.1.0
       '@aria-ui/utils': 0.1.0
@@ -14369,7 +14369,7 @@ snapshots:
   shiki-twoslash-renderer@0.3.2(typescript@5.9.3):
     dependencies:
       '@aria-ui/core': 0.1.0
-      '@aria-ui/elements': 0.1.1
+      '@aria-ui/elements': 0.1.2
       '@shikijs/twoslash': 4.0.2(typescript@5.9.3)
       '@shikijs/types': 4.0.2
       '@types/hast': 3.0.4

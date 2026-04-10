@@ -27,9 +27,9 @@ class SlashMenuElement extends LitElement {
       return html``
     }
 
-    return html`<prosekit-autocomplete-root .editor=${editor} .regex=${regex} class="contents">
-      <prosekit-autocomplete-positioner>
-        <prosekit-autocomplete-popup class="CSS_AUTOCOMPLETE_MENU">
+    return html`<prosekit-autocomplete-root .editor=${editor} .regex=${regex}>
+      <prosekit-autocomplete-positioner class="CSS_AUTOCOMPLETE_POSITIONER">
+        <prosekit-autocomplete-popup class="CSS_AUTOCOMPLETE_POPUP">
           <lit-editor-slash-menu-item
             class="contents"
             label="Text"

@@ -14,9 +14,9 @@ const regex = canUseRegexLookbehind() ? /(?<!\S)\/(\S.*)?$/u : /\/(\S.*)?$/u
 </script>
 
 <template>
-  <AutocompleteRoot :regex="regex" class="contents">
-    <AutocompletePositioner>
-      <AutocompletePopup class="CSS_AUTOCOMPLETE_MENU">
+  <AutocompleteRoot :regex="regex">
+    <AutocompletePositioner class="CSS_AUTOCOMPLETE_POSITIONER">
+      <AutocompletePopup class="CSS_AUTOCOMPLETE_POPUP">
         <SlashMenuItem
           label="Text"
           @select="() => editor.commands.setParagraph()"
