@@ -8,7 +8,7 @@
   "scripts": {
     "build": "turbo build",
     "build:force": "turbo build --force",
-    "build:package": "turbo build --filter='./packages/*' --concurrency=1",
+    "build:package": "turbo build --filter='./packages/*' --filter='./registry' --concurrency=1",
     "build:website": "pnpm --filter='./website' run build",
     "build:typedoc": "pnpm --filter='./website' run build:typedoc",
     "build:registry": "pnpm --filter='./registry' run build",
@@ -30,12 +30,10 @@
     "lint:knip": "knip",
     "preview": "pnpm --filter='./website' run preview",
     "pretest": "pnpm run test:install",
-    "pretest:e2e": "pnpm run test:install",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage.enabled",
     "test:install": "playwright install chromium",
-    "test:e2e": "pnpm --filter='./website' run test",
     "typecheck": "tsc --build tsconfig.json"
   },
   "devDependencies": {
