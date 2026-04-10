@@ -19,6 +19,8 @@ import starlightThemeNova from 'starlight-theme-nova'
 import { exec } from 'tinyexec'
 import wasm from 'vite-plugin-wasm'
 
+import { version } from '../packages/prosekit/package.json'
+
 type Sidebar = StarlightUserConfig['sidebar']
 
 function generateReferenceSidebarItems() {
@@ -224,6 +226,17 @@ const config: AstroUserConfig = {
       css: ['./src/styles/tailwind.css'],
       dashboardSubpath: '/',
       previewSubpath: '-/',
+      homeContent: {
+        title: 'ProseKit',
+        subtitle: false,
+        repo: {
+          href: 'https://github.com/prosekit/prosekit',
+        },
+        version: {
+          label: 'v' + version,
+          href: 'https://github.com/ocavue/prosekit/blob/master/packages/prosekit/CHANGELOG.md',
+        },
+      },
     }),
     minifyHTML(),
     {
