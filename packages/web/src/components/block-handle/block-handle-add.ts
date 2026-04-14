@@ -2,12 +2,12 @@ import {
   defineCustomElement,
   defineProps,
   registerCustomElement,
-  useEventListener,
   type HostElement,
   type HostElementConstructor,
   type PropsDeclaration,
   type State,
 } from '@aria-ui/core'
+import { useEventListener } from '@aria-ui/utils'
 import { insertDefaultBlock, type Editor } from '@prosekit/core'
 
 import { blockHandleStoreContext } from './context.ts'

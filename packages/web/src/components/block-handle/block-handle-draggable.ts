@@ -3,13 +3,12 @@ import {
   defineProps,
   onMount,
   registerCustomElement,
-  useEventListener,
   type HostElement,
   type HostElementConstructor,
   type PropsDeclaration,
   type State,
 } from '@aria-ui/core'
-import { useAttribute } from '@aria-ui/utils'
+import { useAttribute, useEventListener } from '@aria-ui/utils'
 import { isHTMLElement } from '@ocavue/utils'
 import type { Editor } from '@prosekit/core'
 import type { ViewDragging } from '@prosekit/extensions/drop-indicator'

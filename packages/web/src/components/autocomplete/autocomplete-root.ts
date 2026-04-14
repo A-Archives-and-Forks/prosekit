@@ -4,7 +4,6 @@ import {
   defineProps,
   registerCustomElement,
   useEffect,
-  useEventListener,
   type HostElement,
   type HostElementConstructor,
   type PropsDeclaration,
@@ -13,6 +12,7 @@ import {
 } from '@aria-ui/core'
 import { defaultItemFilter, type ItemFilter, type ListboxRootEvents } from '@aria-ui/elements/listbox'
 import { createOverlayStore, OpenChangeEvent, type OverlayStore } from '@aria-ui/elements/overlay'
+import { useEventListener } from '@aria-ui/utils'
 import { defineDOMEventHandler, defineKeymap, withPriority, type Editor, type Extension, type Priority } from '@prosekit/core'
 import { AutocompleteRule, defineAutocomplete, type MatchHandler } from '@prosekit/extensions/autocomplete'
 
