@@ -1,58 +1,6 @@
 # prosekit
 
-## 0.20.0-beta.8
-
-### Patch Changes
-
-- [`3df3e7d`](https://github.com/ocavue/prosekit/commit/3df3e7d9b87d6989df148213786939ab0483ffcb) ![](https://prosekit.dev/b/pm)
-
-  Update dependencies.
-
-## 0.20.0-beta.7
-
-### Patch Changes
-
-- [`8b1e441`](https://github.com/ocavue/prosekit/commit/8b1e4413ae63d98911689b146e9ad7cbb5d7188a) ![](https://prosekit.dev/b/web)
-
-  Update dependencies.
-
-## 0.20.0-beta.6
-
-### Patch Changes
-
-- [`17fe047`](https://github.com/ocavue/prosekit/commit/17fe047c300c5e5976a075740db4bb406df4162f) ![](https://prosekit.dev/b/web)
-
-  Update dependencies.
-
-## 0.20.0-beta.5
-
-### Patch Changes
-
-- [`098cfa5`](https://github.com/ocavue/prosekit/commit/098cfa54dfac7f2cf26915470742c9382608c715) ![](https://prosekit.dev/b/react)
-
-  Add 'use client' directive.
-
-## 0.20.0-beta.4
-
-### Patch Changes
-
-- [`7ab6681`](https://github.com/ocavue/prosekit/commit/7ab6681c9720796fc4568b2773fa7608c865c9c7) ![](https://prosekit.dev/b/preact) ![](https://prosekit.dev/b/svelte) ![](https://prosekit.dev/b/react) ![](https://prosekit.dev/b/solid) ![](https://prosekit.dev/b/vue) ![](https://prosekit.dev/b/web)
-
-  Remove some duplicated API re-exports.
-
-## 0.20.0-beta.3
-
-### Patch Changes
-
-- [`7f60013`](https://github.com/ocavue/prosekit/commit/7f60013ebbfb22a5a003ea3ced2a28d911e326e5) ![](https://prosekit.dev/b/basic)
-
-  Add essential styles for web component elements to `prosekit/basic/style.css`.
-
-- [`dbccc47`](https://github.com/ocavue/prosekit/commit/dbccc474e746762f57d5eef7cc7d4b90c2cfc4ae) ![](https://prosekit.dev/b/web)
-
-  Fix an issue where the inline popover could overflow the clipping area.
-
-## 0.20.0-beta.2
+## 0.20.0
 
 ### Minor Changes
 
@@ -361,26 +309,6 @@
       {/* Same shape for the row tree, using TableHandleRow* + Menu* parts */}
     </TableHandleRoot>
   ```
-
-## 0.20.0-beta.1
-
-### Patch Changes
-
-- [`db055ca`](https://github.com/ocavue/prosekit/commit/db055ca320304ff6c3d7dcab5796223bd9bec54d) ![](https://prosekit.dev/b/solid)
-
-  Prevent Solid node views from being destroyed and recreated on node attribute updates.
-
-- [`9481b68`](https://github.com/ocavue/prosekit/commit/9481b680e52a29bb711f1cebcb0f88aaa8a60b98) ![](https://prosekit.dev/b/vue)
-
-  Prevent Vue node views from being destroyed and recreated when the `props.selected` changes.
-
-## 0.20.0-beta.0
-
-### Minor Changes
-
-- [`ed8c69c`](https://github.com/ocavue/prosekit/commit/ed8c69c685e328e57ce74f33820a86ea70517adf) ![](https://prosekit.dev/b/basic) ![](https://prosekit.dev/b/core) ![](https://prosekit.dev/b/extensions) ![](https://prosekit.dev/b/lit) ![](https://prosekit.dev/b/preact) ![](https://prosekit.dev/b/react) ![](https://prosekit.dev/b/solid) ![](https://prosekit.dev/b/svelte) ![](https://prosekit.dev/b/vue) ![](https://prosekit.dev/b/web)
-
-  Prepare for the component refactor.
 
 ## 0.19.0
 
